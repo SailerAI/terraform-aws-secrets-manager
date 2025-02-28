@@ -21,8 +21,8 @@ variable "environment" {
 variable "secrets" {
   description = "Lista de secrets a serem criados no AWS Secrets Manager"
   type = list(object({
-    name  = string  # Nome do secret
-    value = string  # Valor do secret (pode ser um JSON stringificado)
+    name  = string # Nome do secret
+    value = string # Valor do secret (pode ser um JSON stringificado)
   }))
   # Best practice: Validate secret names and ensure list isn't empty
   validation {

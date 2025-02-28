@@ -5,7 +5,7 @@ resource "aws_secretsmanager_secret" "app_secrets" {
   for_each = { for secret in var.secrets : secret.name => secret }
 
   name = format("%s", each.key)
-  
+
   # Add tags for better resource management and resource grouping
   tags = {
     Environment = var.environment
@@ -24,7 +24,7 @@ resource "aws_secretsmanager_secret_version" "app_secrets_version" {
 
   # Link each version to its parent secret using the secret's ID
   secret_id     = aws_secretsmanager_secret.app_secrets[each.key].id
-  secret_string = each.value.value  # Set the actual secret value from var.secrets
+  secret_string = each.value.value # Set the actual secret value from var.secrets
 }
 
 # Create SSM Parameters to store the ARNs of the secrets
@@ -35,8 +35,8 @@ resource "aws_ssm_parameter" "secret_arns" {
   # Create parameters with a consistent naming pattern: /<service>/<environment>/secrets/<secret-name>-arn
   name  = format("/%s/%s/secrets/%s-arn", var.service_name, var.environment, each.key)
   type  = "String"
-  value = each.value.arn  # Store the ARN of the secret
-  
+  value = each.value.arn # Store the ARN of the secret
+
   # Add consistent tags for resource management
   tags = {
     Environment = var.environment
