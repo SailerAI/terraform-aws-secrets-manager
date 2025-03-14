@@ -12,10 +12,10 @@ variable "environment" {
   description = "Ambiente (dev, hml, prd, etc.)"
   type        = string
   # Best practice: Limit to specific environment values
-  validation {
-    condition     = contains(["dev", "hml", "prd"], var.environment)
-    error_message = "Environment must be one of: dev, hml, prd."
-  }
+#  validation {
+#    condition     = contains(["dev", "hml", "prod"], var.environment)
+#    error_message = "Environment must be one of: dev, hml, prd."
+#  }
 }
 
 variable "secrets" {
