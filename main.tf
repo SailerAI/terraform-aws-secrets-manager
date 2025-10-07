@@ -4,8 +4,8 @@ resource "aws_secretsmanager_secret" "app_secrets" {
   # Transform the list of secrets into a map with secret names as keys
   for_each = { for secret in var.secrets : secret.name => secret }
 
-  name = format("%s", each.key)
-
+  #name = format("%s", each.key)
+  name = format("/%s/%s/%s", var.environment, var.service_name, each.key)
   # Add tags for better resource management and resource grouping
   tags = {
     Environment = var.environment
