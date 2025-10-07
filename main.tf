@@ -33,7 +33,7 @@ resource "aws_ssm_parameter" "secret_arns" {
   for_each = aws_secretsmanager_secret.app_secrets
 
   # Create parameters with a consistent naming pattern: /<service>/<environment>/secrets/<secret-name>-arn
-  name  = format("/%s/%s/secrets/%s-arn", var.service_name, var.environment, each.key)
+  name  = format("/%s/%s/secrets/%s-arn", var.environment, var.service_name, each.key)
   type  = "String"
   value = each.value.arn # Store the ARN of the secret
 
